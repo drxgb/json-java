@@ -1,4 +1,4 @@
-XGB's JSON API
+XGB's JSON Lib
 ==============
 
 > ⚠️ Este documento ainda está em construção. 
