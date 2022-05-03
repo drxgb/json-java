@@ -4,10 +4,11 @@ XGB's JSON Lib
 > ⚠️ Este documento ainda está em construção. 
 
 **Autor:** Dr.XGB<br>
-**Versão:** 1.0.0<br>
+**Versão:** 1.0.2<br>
 **Versão da compilação:** JDK 11.0.12<br>
 **Data de criação:** 29 de Abril de 2022<br>
 **Data de publicação:** 01 de Maio de 2022<br>
+**Última atualização:** 03 de Maio de 2022<br>
 
 Biblioteca feita em JAVA para analisar um conteúdo JSON e converter para objetos onde podem ser usados em suas aplicações JAVA.
 
@@ -17,7 +18,7 @@ Biblioteca feita em JAVA para analisar um conteúdo JSON e converter para objeto
 Requerimentos
 -------------
 
-- JDK 11+ instalado. Caso não tenha esta versão ou Java instalado, você pode baixar através do [AdoptJDK](https://adoptopenjdk.net/).
+- JDK 11+ instalado. Caso não tenha esta versão ou Java instalado, você pode baixar através do [AdoptJDK](https://adoptopenjdk.net/) ou no próprio site da Oracle.
 	- Escolha a versão 11 (LTS) ou uma versão superior.
 	- Escolha a JVM Hotspot (se estiver em português aparecerá como  _Ponto de acesso_ .
 - Sistemas operacionais: Windows, Linux e Mac.
@@ -33,12 +34,16 @@ Até então, há 2 classes que implementam a interface:
 1. `JSONObject`: Um objeto que utiliza a notação JSON, geralmente estão entre chaves `{}`.
 
 **Exemplo:**<br> 
-`{ "name": "Jubileu , "age": 16 }`
+```json
+{ "name": "Jubileu" , "age": 16 }
+```
 
 2. `JSONArray`: Objeto que representa um array contendo um conjunto de objetos JSON, geralmente estão entre colchetes `[]`.
 
 **Exemplo:**<br>
-`[{ "name":  "Jubileu", "age": 16 }, { "name": "Jacira", "age": 42 }]`
+```json
+[{ "name":  "Jubileu", "age": 16 }, { "name": "Jacira", "age": 42 }]
+```
 
 O método aceita 3 tipos de entrada para analisar o JSON:
 
@@ -51,17 +56,32 @@ JSONCollection json = JSON.parse(str);
 ```java
 try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream("path/to/file.json")))
 {
-    JSONCollection json = JSON.parse(bis);
+	JSONCollection json = JSON.parse(bis);
 }
 catch (IOExceprion e)
 {
-    // Tratamento da exceção
-   e.printStackTrace();
+	// Tratamento da exceção
+	e.printStackTrace();
 }
 ```
 3. `File`
 ```java
 JSONCollection json = JSON.parse(new File("path/to/file.json"));
 ```
+4. `URL` 
+```java
+JSONCollection json = JSON.parse(new URL("https://yesno.wtf/api"));
+System.out.println(json);
+```
+A saída do código acima ficaria algo parecido com:
+```json
+{ "answer": "no", "forced": false, "image": "https://yesno.wtf/assets/no/21-05540164de4e3229609f106e468fa8e7.gif" }
+```
 
-Na próxima versão será adicionada entrada do tipo `URL` para recuperar o conteúdo JSON através de uma requisição via REST.
+Feito isso, você consegue consultar os elementos utilizando o método `get()`, fornecendo a chave do elemento como argumento.
+```java
+JSONCollection json = JSON.parse(new URL("https://yesno.wtf/api"));
+System.out.printn(json.get("forced");
+```
+Resultado:
+`false`
