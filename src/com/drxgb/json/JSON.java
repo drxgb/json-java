@@ -13,7 +13,7 @@ import com.drxgb.json.exception.InvalidJSONException;
 /**
  * Representa ações relacionadas a um JSON.
  * @author Dr.XGB
- * @version 1.0.0
+ * @version 1.0.1
  */
 public abstract class JSON
 {
