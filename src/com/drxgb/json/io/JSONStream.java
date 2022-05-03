@@ -32,7 +32,7 @@ public class JSONStream
 
 	/**
 	 * Cria uma cadeia de caracteres de um conteúdo JSON.
-	 * @param content
+	 * @param content Conteúdo JSON a ser analisado.
 	 */
 	public JSONStream(String content)
 	{
