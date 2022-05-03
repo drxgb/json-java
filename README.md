@@ -1,5 +1,5 @@
-XGB's JSON Reader
-=================
+XGB's JSON API
+==============
 
 > ⚠️ Este documento ainda está em construção. 
 
