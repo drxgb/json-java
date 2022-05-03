@@ -1,6 +1,8 @@
 XGB's JSON Reader
 =================
 
+> ⚠️ Este documento ainda está em construção. 
+
 **Autor:** Dr.XGB<br>
 **Versão:** 1.0.0<br>
 **Versão da compilação:** JDK 11.0.12<br>
