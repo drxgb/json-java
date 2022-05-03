@@ -92,8 +92,12 @@ public abstract class JSON
 	public static JSONCollection parse(URL url) throws IOException, InvalidJSONException
 	{
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		if (!connection.getHeaderField("Content-Type").matches("(.*)?application/json;?(.*)?"))
-			throw new InvalidJSONException("The response header Content-Type is not a JSON application.");
+		if (connection != null)
+		{
+			String status = connection.getHeaderField("Status");
+			if (status != null && connection.getHeaderField("Status").matches("^[45]\\d{2}(.*)"))
+				throw new InvalidJSONException("The response header Content-Type is not a JSON application.");
+		}
 		JSONCollection json = parse(connection.getInputStream());
 		connection.disconnect();
 		return json;
