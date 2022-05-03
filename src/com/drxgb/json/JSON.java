@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import com.drxgb.json.exception.InvalidJSONException;
 
@@ -19,8 +21,9 @@ public abstract class JSON
 	 * Analisa uma <code>String</code> e transforma em um objeto JSON.
 	 * @param content Conteúdo JSON em forma de texto.
 	 * @return Um objeto JSON codificado.
+	 * @throws InvalidJSONException Quando o formato JSON não é válido.
 	 */
-	public static JSONCollection parse(String content)
+	public static JSONCollection parse(String content) throws InvalidJSONException
 	{
 		Parser parser = new Parser(content);
 		try
@@ -43,8 +46,9 @@ public abstract class JSON
 	 * @param is O arquivo <code>.json</code>.
 	 * @return Um objeto JSON codificado.
 	 * @throws IOException Caso ocorra algum erro na leitura do arquivo.
+	 * @throws InvalidJSONException Quando o formato JSON não é válido.
 	 */
-	public static JSONCollection parse(InputStream is) throws IOException
+	public static JSONCollection parse(InputStream is) throws IOException, InvalidJSONException
 	{
 		String content = "";
 		while (is.available() > 0)
@@ -61,8 +65,9 @@ public abstract class JSON
 	 * @param file O caminho do arquivo <code>.json</code>.
 	 * @return Um objeto JSON codificado.
 	 * @throws IOException Caso ocorra algum erro na leitura do arquivo.
+	 * @throws InvalidJSONException Quando o formato JSON não é válido.
 	 */
-	public static JSONCollection parse(File file) throws IOException
+	public static JSONCollection parse(File file) throws IOException, InvalidJSONException
 	{
 		try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file)))
 		{
@@ -72,5 +77,24 @@ public abstract class JSON
 		{
 			throw e;
 		}
+	}
+	
+	
+	/**
+	 * Faz uma requisição HTTP, recebendo do servidor na qual
+	 * é solicitada um conteúdo JSON.
+	 * @param url Caminho para qual a requisição deve solicitar um conteúdo JSON.
+	 * @return O conteúdo JSON lido do corpo da resposta.
+	 * @throws IOException Caso ocorra um erro na leitura do conteúdo JSON.
+	 * @throws InvalidJSONException Quando o formato JSON não é válido.
+	 */
+	public static JSONCollection parse(URL url) throws IOException, InvalidJSONException
+	{
+		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+		if (!connection.getHeaderField("Content-Type").matches("(.*)?application/json;?(.*)?"))
+			throw new InvalidJSONException("The response header Content-Type is not a JSON application.");
+		JSONCollection json = parse(connection.getInputStream());
+		connection.disconnect();
+		return json;
 	}
 }
