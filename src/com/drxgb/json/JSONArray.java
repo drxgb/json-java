@@ -20,7 +20,7 @@ import java.util.List;
  * ]
  * </code></pre>
  * @author Dr.XGB
- * @version 1.0.0
+ * @version 1.0.2
  * @see AbstractJSON
  */
 public class JSONArray extends AbstractJSON<List<Object>>
@@ -81,6 +81,12 @@ public class JSONArray extends AbstractJSON<List<Object>>
 	public void remove(Object obj)
 	{
 		items.remove(obj);
+	}
+	
+	@Override
+	public Object get(Object index)
+	{
+		return items.get((Integer) index);
 	}
 	
 	

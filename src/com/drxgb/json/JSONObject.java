@@ -25,7 +25,7 @@ import java.util.TreeMap;
  * }
  * </code></pre>
  * @author Dr.XGB
- * @version 1.0.0
+ * @version 1.0.2
  * @see JSONCollection
  * @see SortedMap
  */
@@ -80,6 +80,12 @@ public class JSONObject extends AbstractJSON<SortedMap<String, Object>>
 	public void remove(Object key)
 	{
 		items.remove((String) key);
+	}
+	
+	@Override
+	public Object get(Object key)
+	{
+		return items.get(key);
 	}
 	
 	

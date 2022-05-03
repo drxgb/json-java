@@ -51,9 +51,10 @@ public abstract class JSON
 	public static JSONCollection parse(InputStream is) throws IOException, InvalidJSONException
 	{
 		String content = "";
-		while (is.available() > 0)
+		int i;
+		while ((i = is.read()) != -1)
 		{
-			content += (char) is.read();
+			content += (char) i;
 		}
 		return parse(content);
 	}

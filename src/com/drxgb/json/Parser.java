@@ -11,7 +11,7 @@ import com.drxgb.json.io.JSONStream;
 /**
  * <p>Utilizada para interpretar um conteúdo de texto para ser codificado a um objeto JSON.</p>
  * @author Dr.XGB
- * @version 1.0.0
+ * @version 1.0.2
  */
 public class Parser
 {
@@ -36,7 +36,7 @@ public class Parser
 	/**
 	 * Representa o valor <code>null</code>.
 	 */
-	private static final String NULL = "null";
+	public static final String NULL = "null";
 	
 	/**
 	 * Representa o tipo NaN (Not a Number).
@@ -128,9 +128,9 @@ public class Parser
 		{
 			JSONCollection obj = new JSONObject();
 			String key, value;
+			stream.nextPosition();
 			while (!stream.finished())
-			{				
-				stream.nextPosition();
+			{
 				skipSpaces(stream);
 				key = findKey(stream);
 				if (key != null)
@@ -140,6 +140,10 @@ public class Parser
 					if (value == null)
 						throw new InvalidJSONException("Value not found at index {n}.", stream.getPosition());
 					insertValue(key, value, (k, v) -> obj.insert(k, v));
+				}
+				else
+				{
+					stream.nextPosition();
 				}
 			}
 			return obj;
@@ -250,15 +254,12 @@ public class Parser
 				if (isSeparator(ch))
 					break;
 				val += ch;
-			}
-			if (val.matches(BOOLEAN))
+			}			
+		}
+		catch (IndexOutOfBoundsException e) {}
+		if (val.matches(BOOLEAN))
 				return val;
 			return null;
-		}
-		catch (IndexOutOfBoundsException e)
-		{
-			return val;
-		}
 	}
 	
 	/**
