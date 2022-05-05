@@ -13,7 +13,7 @@ import com.drxgb.json.exception.InvalidJSONException;
 /**
  * Representa ações relacionadas a um JSON.
  * @author Dr.XGB
- * @version 1.0.1
+ * @version 1.1.3
  */
 public abstract class JSON
 {
@@ -95,7 +95,7 @@ public abstract class JSON
 		if (connection != null)
 		{
 			String status = connection.getHeaderField("Status");
-			if (status != null && connection.getHeaderField("Status").matches("^[45]\\d{2}(.*)"))
+			if (status != null && status.matches("^[45]\\d{2}(.*)"))
 				throw new InvalidJSONException("The response header Content-Type is not a JSON application.");
 		}
 		JSONCollection json = parse(connection.getInputStream());

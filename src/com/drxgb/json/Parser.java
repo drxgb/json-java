@@ -11,7 +11,7 @@ import com.drxgb.json.io.JSONStream;
 /**
  * <p>Utilizada para interpretar um conteúdo de texto para ser codificado a um objeto JSON.</p>
  * @author Dr.XGB
- * @version 1.0.2
+ * @version 1.1.3
  */
 public class Parser
 {
@@ -514,7 +514,7 @@ public class Parser
 			throws Exception
 	{
 		if (checkType(value, STRING))
-			insert.accept(key, value);
+			insert.accept(key, value.substring(1, value.length() - 1));
 		else if (checkType(value, INTEGER))
 			insert.accept(key, Integer.valueOf(value));
 		else if (checkType(value, FLOAT))
