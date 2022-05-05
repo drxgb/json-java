@@ -4,11 +4,11 @@ XGB's JSON Lib
 > ⚠️ Este documento ainda está em construção. 
 
 **Autor:** Dr.XGB<br>
-**Versão:** 1.0.2<br>
+**Versão:** 1.1.3<br>
 **Versão da compilação:** JDK 11.0.12<br>
 **Data de criação:** 29 de Abril de 2022<br>
 **Data de publicação:** 01 de Maio de 2022<br>
-**Última atualização:** 03 de Maio de 2022<br>
+**Última atualização:** 05 de Maio de 2022<br>
 
 Biblioteca feita em JAVA para analisar um conteúdo JSON e converter para objetos onde podem ser usados em suas aplicações JAVA.
 
